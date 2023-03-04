@@ -14,6 +14,3 @@ class Nurse:
         self.email = email
         self.password = password
         self.location = location
-
-    def __getNurse__(self):
-        return self.forename, self.surname

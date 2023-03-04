@@ -19,7 +19,7 @@ class Main:
         self.priorityqueue.insert(request)
 
     def get_next_request(self):
-        return self.priorityqueue.extract_max()
+        return Request(*self.priorityqueue.extract_max())
     
     def check_patient_id(self,id):
         return self.db.check_patient_id(id)
