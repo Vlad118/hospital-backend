@@ -6,10 +6,10 @@ class Database:
         self.connect = None
         self.cursor = None
 
-    def connect_db(self, db_file):
+    def connect_db(self):
         """ Creates a database connection with the SQLite database """
-        self.connect = sqlite3.connect(db_file)
-        self.cursor = connect.cursor()
+        self.connect = sqlite3.connect(self.db_file)
+        self.cursor = self.connect.cursor()
 
         self.cursor.execute(
             '''
@@ -26,7 +26,19 @@ class Database:
               [email] TEXT, [password] TEXT, [location])'''
         ) #location is within hospital (to be able to link to patient)
 
-    def insert_request(self, request):
+        def get_priority_request(self):
+            self.cursor
+
+
+        def remove_request(self, id):
+            self.cursor.execute(
+                f'''
+                DELETE FROM requests
+                WHERE request_id = {id}'''
+            )
+
+
+        def insert_request(self, request):
         self.cursor.execute(
             f'''
             INSERT INTO requests VALUES
