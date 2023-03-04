@@ -26,30 +26,7 @@ class Main:
         return self.get_next_request()
     
     def register_nurse(self, nurse_id, forename, surname, email, password, location):
-        return self.db.insert_nurse(nurse_id, forename, surname, email, password, location)
+        return self.db.insert_nurse(nurse_id, forename, surname, email, password, location):
     
-
 main = Main()
-request = Request()
-request.patient_id = 100
-request.priority = 10
-
-
-r2 = Request()
-r2.patient_id = 200
-r2.priority = 20
-
-r3 = Request()
-r3.priority = 15
-r3.patient_id = 30
-
-main.add_request(request)
-main.add_request(r2)
-main.add_request(r3)
-
-print(main.get_next_request())
-print(main.get_next_request())
-print(main.get_next_request())
-
-
 
