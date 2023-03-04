@@ -4,11 +4,15 @@ from request import Request
 from nurse import Nurse
 
 class Main: 
-    def __init__(self):
+    def __init__(self, cleardbs=False):
         db_file = 'request_and_nurses.db' 
         self.db = Database(db_file)
         self.db.connect_db()
-        self.db.clear_requests()
+
+        if(cleardbs):
+            self.db.clear_requests()
+            self.db.clear_nurses()
+            self.db.clear_patients()
         self.priorityqueue = PriorityQueue(self.db)
 
     def add_request(self, request):
@@ -29,11 +33,8 @@ class Main:
     def register_nurse(self, nurse):
         return self.db.insert_nurse(nurse)
     
-main = Main()
+    def register_patient(self,id,forename, surname):
+        return self.db.insert_patient(id,forename,surname)
+    
+main = Main(cleardbs=True)
 
-nurse = Nurse()
-nurse.nurse_id = 1
-nurse.password = "abc"
-
-main.register_nurse(nurse)
-main.check_nurse(1,"abc")

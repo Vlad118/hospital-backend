@@ -29,7 +29,7 @@ class Database:
         self.cursor.execute(
             '''
             CREATE TABLE IF NOT EXISTS patient
-            ([patient_id] INTEER PRIMARY KEY, [forename] TEXT, [surname] TEXT)'''
+            ([patient_id] INTEGER PRIMARY KEY, [forename] TEXT, [surname] TEXT)'''
         )
 
 
@@ -76,6 +76,16 @@ class Database:
         self.cursor.execute("DELETE FROM requests")
         self.connect.commit()
 
+        
+    def clear_patients(self):
+        self.cursor.execute("DELETE FROM patient")
+        self.connect.commit()
+
+        
+    def clear_nurses(self):
+        self.cursor.execute("DELETE FROM nurse")
+        self.connect.commit()
+
     def get_priority_of_request(self, id):
         params = (id,)
         result = self.cursor.execute(
@@ -94,10 +104,10 @@ class Database:
         params = nurse.nurse_id, nurse.forename, nurse.surname, nurse.email, nurse.password, nurse.location
         self.cursor.execute(
             '''
-            INSERT INTO patient VALUES
+            INSERT INTO nurse VALUES
             (?, ?, ?, ?, ?, ?)''', params
         )
-        self.cursor.commit()
+        self.connect.commit()
 
     def remove_nurse(self, id):
         params = (id,)
@@ -116,20 +126,20 @@ class Database:
             '''
             SELECT nurse_id from nurse
             WHERE nurse_id = (?)''', (id,)
-        )
+        ).fetchone()
         nurse_password = self.cursor.execute(
             '''
             SELECT password from nurse
-            WHERE nurse_id = (?) && password = (?)''', params
-        )
+            WHERE nurse_id = (?) AND password = (?)''', params
+        ).fetchone()
 
-        if nurse_id != "":
+        if nurse_id != None:
             nurse_id_exists = True
         
-        if nurse_password != "":
+        if nurse_password != None:
             password_correct = True
         
-        return nurse_id_exists & password_correct
+        return nurse_id_exists and password_correct
 
     ### PATIENT ###
     def insert_patient(self, id, forename, surname):
@@ -157,8 +167,8 @@ class Database:
             ''' 
             SELECT patient_id from patient
             WHERE patient_id = (?)''', params
-        )
-        if patient_id != "":
+        ).fetchone()
+        if patient_id != None:
             patient_exists = True
         
         return patient_exists
