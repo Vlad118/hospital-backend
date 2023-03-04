@@ -109,6 +109,17 @@ class Database:
         )
         self.connect.commit()
 
+    def get_nurse(self, id):
+        params = (id,)
+        result = self.cursor.execute(
+            '''
+            SELECT * from nurse
+            WHERE nurse_id = ?
+            ''',params
+        ).fetchone()
+        return result
+
+
     def remove_nurse(self, id):
         params = (id,)
         self.cursor.execute(

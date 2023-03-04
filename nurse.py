@@ -7,5 +7,13 @@ class Nurse:
         self.password = None
         self.location = None
 
+    def __init__(self, id, forename, surname, email, password, location):
+        self.nurse_id = id
+        self.forename = forename
+        self.surname = surname
+        self.email = email
+        self.password = password
+        self.location = location
+
     def __getNurse__(self):
         return self.forename, self.surname
