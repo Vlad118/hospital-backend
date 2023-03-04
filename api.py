@@ -45,14 +45,14 @@ def get_next_task():
     return return_dict # (patient_id, type_of_request, location)
 
 @app.route('/api/send_request', methods = ['GET', 'POST'])
-def send_request():                     # this needs the patient id as well !!!
-    patient_id = None # todo, codrin where can this be extracted?
+def send_request():
+    patient_id = request.form.get('patient_id')
     type_of_request = request.form.get('type_of_request')
     location = None # completely unimplemented, future project!
     extra_info = request.form.get('extra_info')
 
     request = Request()
-    request.patient_id = patient_id # todo
+    request.patient_id = patient_id
     request.priority = Main.get_priority_from_type()
     request.type_of_request = type_of_request
     request.location = location # todo
