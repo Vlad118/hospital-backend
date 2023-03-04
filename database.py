@@ -35,4 +35,27 @@ class Database:
         )
         self.connect.commit()
 
+    def change_id_of_request(self,old_id,new_id):
+        self.cursor.execute(
+            f'''
+            UPDATE requests
+            SET request_id = {new_id}
+            WHERE request_id = {old_id};
+            '''
+        )
+        self.connect.commit()
+
+    def get_priority_of_request(self, id):
+        result = self.cursor.execute(
+            f'''
+            SELECT priority from requests
+            WHERE request_id = {id}
+            '''
+        ).fetchone()
+        try:
+            return result[0]
+        except IndexError:
+            print("Oh snap")
+            quit()
+
 #TODO add connect.close() to close the database
