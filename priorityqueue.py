@@ -1,6 +1,6 @@
 import math
 
-class RequestPriorityQueue:
+class PriorityQueue:
     """Priority Queue implemented as a max heap"""
     def __init__(self, db):
         self.db = db
