@@ -39,7 +39,7 @@ class Database:
 
 
         def insert_request(self, request):
-        self.cursor.execute(
+            self.cursor.execute(
             f'''
             INSERT INTO requests VALUES
                 ({request.request_id},{request.patient_id},{request.priority},{request.type_of_request},{request.location})
