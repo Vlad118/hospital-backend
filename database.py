@@ -23,12 +23,19 @@ class Database:
             '''
             CREATE TABLE IF NOT EXIST nurse
             ([nurse_id] INTEGER PRIMARY KEY, [forename] TEXT, [surname] TEXT,
-              [email] TEXT, [password] TEXT, [location])'''
+              [email] TEXT, [password] TEXT, [location] TEXT)'''
         ) #location is within hospital (to be able to link to patient)
 
+        self.cursor.execute(
+            '''
+            CREATE TABLE IF NOT EXIST patient
+            ([patient_id] INTEER PRIMARY KEY, [forename] TEXT, [surname] TEXT)'''
+        )
+
+
+    ### REQUESTS ###
     def get_request(self, id):
             self.cursor.fetchone(id) #FIXME not sure if this is correct
-
 
     def remove_request(self, id):
         self.cursor.execute(
@@ -70,5 +77,10 @@ class Database:
         except IndexError:
             print("Oh snap")
             quit()
+
+
+    ### NURSE ###
+
+
 
 #TODO add connect.close() to close the database
