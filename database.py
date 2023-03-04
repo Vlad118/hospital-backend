@@ -26,7 +26,19 @@ class Database:
               [email] TEXT, [password] TEXT, [location])'''
         ) #location is within hospital (to be able to link to patient)
 
-    def insert_request(self, request):
+        def get_priority_request(self):
+            self.cursor
+
+
+        def remove_request(self, id):
+            self.cursor.execute(
+                f'''
+                DELETE FROM requests
+                WHERE request_id = {id}'''
+            )
+
+
+        def insert_request(self, request):
         self.cursor.execute(
             f'''
             INSERT INTO requests VALUES
