@@ -6,10 +6,10 @@ class Database:
         self.connect = None
         self.cursor = None
 
-    def connect_db(self, db_file):
+    def connect_db(self):
         """ Creates a database connection with the SQLite database """
-        self.connect = sqlite3.connect(db_file)
-        self.cursor = connect.cursor()
+        self.connect = sqlite3.connect(self.db_file)
+        self.cursor = self.connect.cursor()
 
         self.cursor.execute(
             '''
