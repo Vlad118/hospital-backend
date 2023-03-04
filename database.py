@@ -26,23 +26,24 @@ class Database:
               [email] TEXT, [password] TEXT, [location])'''
         ) #location is within hospital (to be able to link to patient)
 
-        def get_priority_request(self):
-            self.cursor
+    def get_request(self, id):
+            self.cursor.fetchone(id) #FIXME not sure if this is correct
 
 
-        def remove_request(self, id):
-            self.cursor.execute(
-                f'''
-                DELETE FROM requests
-                WHERE request_id = {id}'''
-            )
+    def remove_request(self, id):
+        self.cursor.execute(
+            f'''
+            DELETE FROM requests
+            WHERE request_id = {id}'''
+        )
+        self.connect.commit()
 
 
-        def insert_request(self, request):
-            self.cursor.execute(
+    def insert_request(self, request):
+        self.cursor.execute(
             f'''
             INSERT INTO requests VALUES
-                ({request.request_id},{request.patient_id},{request.priority},{request.type_of_request},{request.location})
+            ({request.request_id},{request.patient_id},{request.priority},{request.type_of_request},{request.location})
             '''
         )
         self.connect.commit()
