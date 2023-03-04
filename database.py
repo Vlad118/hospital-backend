@@ -100,7 +100,7 @@ class Database:
         self.cursor.commit()
 
     def remove_nurse(self, id):
-        params = id
+        params = (id,)
         self.cursor.execute(
             '''
             DELETE FROM nurse
@@ -109,7 +109,7 @@ class Database:
         self.connect.commit()
 
     def check_nurse(self, id, password): # check if nurseID AND password matches, return boolean 
-        params = id, password
+        params = (id, password)
         nurse_id_exists = False
         password_correct = False
         nurse_id = self.cursor.execute(
@@ -133,7 +133,7 @@ class Database:
 
     ### PATIENT ###
     def insert_patient(self, id, forename, surname):
-        params = id, forename, surname
+        params = (id, forename, surname)
         self.cursor.execute(
             '''
             INSERT INTO patient VALUES
@@ -142,7 +142,7 @@ class Database:
         self.connect.commit()
 
     def remove_patient(self, id):
-        params = id
+        params = (id,)
         self.cursor.execute(
             '''
             DELETE FROM patient
@@ -151,7 +151,7 @@ class Database:
         self.connect.commit()
 
     def check_patient_id(self, id): # check if patientID exists in db, return boolean
-        params = id
+        params = (id,)
         patient_exists = False
         patient_id = self.cursor.execute(
             ''' 
