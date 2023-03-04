@@ -14,6 +14,3 @@ class Request:
         self.priority = priority
         self.type_of_request = type
         self.location = location
-
-    def __getRequest__(self):
-        return self.patient_id, self.type_of_request, self.location
