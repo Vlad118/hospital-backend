@@ -25,6 +25,10 @@ class Main:
     def get_task(self,id):
         return self.get_next_request()
     
+    def register_nurse(self, nurse_id, forename, surname, email, password, location):
+        return self.db.insert_nurse(nurse_id, forename, surname, email, password, location)
+    
+
 main = Main()
 request = Request()
 request.patient_id = 100
