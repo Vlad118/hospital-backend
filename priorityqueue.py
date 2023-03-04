@@ -26,7 +26,9 @@ class PriorityQueue:
  
     def extract_max(self):
         """Returns request with highest priority"""
-        return self.db.get_request(0)
+        request = self.db.get_request(0)
+        self.db.remove_request(0)
+        return request
 
     def insert(self, request):
         """Adds new request to DB and priority queue"""
