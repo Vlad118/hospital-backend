@@ -20,15 +20,16 @@ class PriorityQueue:
     
     def switch_nodes(self,i,j):
         """Switches ID of nodes at index i and j"""
-        self.db.change_ID_of_request(i,-1)
-        self.db.change_ID_of_request(j,i)
-        self.db.change_ID_of_request(-1,i)
+        self.db.change_id_of_request(i,self.size*2)
+        self.db.change_id_of_request(j,i)
+        self.db.change_id_of_request(self.size*2,j)
  
     def extract_max(self):
         """Returns request with highest priority"""
         request = self.db.get_request(0)
         self.db.remove_request(0)
         self.db.change_id_of_request(self.size-1,0)
+        self.size -= 1
         self.max_heapify(0)
         return request
 
@@ -36,14 +37,13 @@ class PriorityQueue:
         """Adds new request to DB and priority queue"""
         self.size += 1
         request.request_id = self.size - 1
-        self.db.insert_request(request) # add request to DB with ID self.size-1
+        self.db.insert_request(request)
 
         j = self.size - 1
         while (j != 0 and self.db.get_priority_of_request(j) > self.db.get_priority_of_request(self.parent(j))):
             self.switch_nodes(j,self.parent(j))
             j = self.parent(j)
 
-    # This is not used, but I thought Mary would enjoy ;)
     def max_heapify(self, i):
         """Maintains maxheap property when violation occurs"""
         l = self.left(i)

@@ -14,61 +14,71 @@ class Database:
         self.cursor.execute(
             '''
             CREATE TABLE IF NOT EXISTS requests
-            ([request_id] INTERGER PRIMARY KEY, [patient_id] INTEGER, 
+            ([request_id] INTERGER, [patient_id] INTEGER, 
             [priority] INTEGER, [type_of_request] TEXT, [location] TEXT)
             '''
         ) #location within hospital (wing, ward...)
 
         self.cursor.execute(
             '''
-            CREATE TABLE IF NOT EXIST nurse
+            CREATE TABLE IF NOT EXISTS nurse
             ([nurse_id] INTEGER PRIMARY KEY, [forename] TEXT, [surname] TEXT,
               [email] TEXT, [password] TEXT, [location])'''
         ) #location is within hospital (to be able to link to patient)
 
     def get_request(self, id):
-            self.cursor.fetchone(id) #FIXME not sure if this is correct
+        params = (id,)
+        result = self.cursor.execute(
+            '''
+            SELECT * from requests
+            WHERE request_id = ?
+            ''',params
+        ).fetchone()
+        if result == None:
+            return -1
+        return result
 
 
     def remove_request(self, id):
+        params = (id,)
         self.cursor.execute(
-            f'''
+            '''
             DELETE FROM requests
-            WHERE request_id = {id}'''
+            WHERE request_id = ?''',params
         )
         self.connect.commit()
 
 
     def insert_request(self, request):
-        self.cursor.execute(
-            f'''
-            INSERT INTO requests VALUES
-            ({request.request_id},{request.patient_id},{request.priority},{request.type_of_request},{request.location})
-            '''
-        )
+        params = (request.request_id, request.patient_id, request.priority, request.type_of_request, request.location)
+        self.cursor.execute("INSERT INTO requests VALUES(?,?,?,?,?)",params)
         self.connect.commit()
 
     def change_id_of_request(self,old_id,new_id):
+        params = (new_id,old_id)
         self.cursor.execute(
-            f'''
-            UPDATE requests
-            SET request_id = {new_id}
-            WHERE request_id = {old_id};
             '''
+            UPDATE requests
+            SET request_id = ?
+            WHERE request_id = ?
+            ''',params
         )
         self.connect.commit()
 
+    def clear_requests(self):
+        self.cursor.execute("DELETE FROM requests")
+        self.connect.commit()
+
     def get_priority_of_request(self, id):
+        params = (id,)
         result = self.cursor.execute(
-            f'''
-            SELECT priority from requests
-            WHERE request_id = {id}
             '''
+            SELECT priority from requests
+            WHERE request_id = ?
+            ''',params
         ).fetchone()
-        try:
-            return result[0]
-        except IndexError:
-            print("Oh snap")
-            quit()
+        if result == None:
+            return -1
+        return result[0]
 
 #TODO add connect.close() to close the database
