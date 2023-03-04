@@ -1,6 +1,7 @@
 from database import Database
 from priorityqueue import PriorityQueue
 from request import Request
+from nurse import Nurse
 
 class Main: 
     def __init__(self):
@@ -30,3 +31,9 @@ class Main:
     
 main = Main()
 
+nurse = Nurse()
+nurse.nurse_id = 1
+nurse.password = "abc"
+
+main.register_nurse(nurse)
+main.check_nurse(1,"abc")

@@ -28,7 +28,7 @@ class Database:
 
         self.cursor.execute(
             '''
-            CREATE TABLE IF NOT EXIST patient
+            CREATE TABLE IF NOT EXISTS patient
             ([patient_id] INTEER PRIMARY KEY, [forename] TEXT, [surname] TEXT)'''
         )
 
