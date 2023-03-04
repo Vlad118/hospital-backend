@@ -39,18 +39,17 @@ class Main:
     
     def register_patient(self,id,forename, surname):
         return self.db.insert_patient(id,forename,surname)
-    
+
     def get_priority_from_type(self, type):
         if type == "FOOD":
             return 1
         if type == "WATER":
-            return 3
-        if type == "TOILET":
-            return 5
+            return 1
+        if type == "ASSISTANCE":    # including toilet?
+            return 2
         if type == "PAINKILLERS":
-            return 5
-        if type == "DYING":
+            return 3
+        if type == "EMERGENCY":
             return 10
-    
-main = Main(cleardbs=True)
 
+main = Main(cleardbs=True)

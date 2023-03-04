@@ -49,14 +49,16 @@ def send_request():                     # this needs the patient id as well !!!
     type_of_request = request.form.get('type_of_request')
     extra_info = request.form.get('extra_info')
     patient_id = None # todo, codrin where can this be extracted?
-    location = None # completely unimplemented
+    location = None # completely unimplemented, future project!
 
     request = Request()
     request.patient_id = patient_id # todo
+    request.priority = Main.get_priority_from_type()
     request.type_of_request = type_of_request
     request.location = location # todo
     request.extra_info = extra_info
     
+    Main.add_request(request)   # adds request to database where request_id is generated
 
 # Run the application
 if __name__ == '__main__':
