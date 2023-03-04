@@ -4,7 +4,7 @@ from request import Request
 
 class Main: 
     def __init__(self):
-        db_file = "database.db"
+        db_file = 'request_and_nurses.db' 
         self.db = Database(db_file)
         self.db.connect_db()
         self.db.clear_requests()
