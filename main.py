@@ -16,6 +16,15 @@ class Main:
     def get_next_request(self):
         return self.priorityqueue.extract_max()
     
+    def check_patient_id(self,id):
+        return self.db.check_patient_id(id)
+    
+    def check_nurse(self,id, password):
+        return self.db.check_nurse(id,password)
+    
+    def get_task(self,id):
+        return self.get_next_request()
+    
 main = Main()
 request = Request()
 request.patient_id = 100

@@ -104,7 +104,7 @@ class Database:
         self.cursor.execute(
             '''
             DELETE FROM nurse
-            WHERE nurse_id = (?)''', params
+            WHERE nurse_id = ?''', params
         )
         self.connect.commit()
 
@@ -115,12 +115,12 @@ class Database:
         nurse_id = self.cursor.execute(
             '''
             SELECT nurse_id from nurse
-            WHERE nurse_id = (?)''', params[0]
+            WHERE nurse_id = (?)''', (id,)
         )
         nurse_password = self.cursor.execute(
             '''
             SELECT password from nurse
-            WHERE nurse_id = (?) && password = (?)''', params[0], params[1]
+            WHERE nurse_id = (?) && password = (?)''', params
         )
 
         if nurse_id != "":
