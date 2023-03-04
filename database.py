@@ -81,6 +81,46 @@ class Database:
 
     ### NURSE ###
 
+    ### PATIENT ###
+    def check_patient_id(id): # check if patientID exists in db, return boolean
+        params = id
+        patient_exists = False
+        patient_id = self.cursor.execute(
+            ''' 
+            SELECT patient_id from patient
+            WHERE patient_id = (?)''', params
+        )
+        if patient_id != "":
+            patient_exists = True
+        
+        return patient_exists
+
+    
+    def check_nurse(id, password): # check if nurseID AND password matches, return boolean 
+        params = id, password
+        nurse_id_exists = False
+        password_correct = False
+        nurse_id = self.cursor.execute(
+            '''
+            SELECT nurse_id from nurse
+            WHERE nurse_id = (?)''', params[0]
+        )
+        nurse_password = self.cursor.execute(
+            '''
+            SELECT password from nurse
+            WHERE nurse_id = (?) && password = (?)''', params[0], params[1]
+        )
+
+        if nurse_id != "":
+            nurse_id_exists = True
+        
+        if nurse_password != "":
+            password_correct = True
+        
+        return nurse_id_exists & password_correct
+
+
+
 
 
 #TODO add connect.close() to close the database
