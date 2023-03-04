@@ -90,8 +90,8 @@ class Database:
 
 
     ### NURSE ###
-    def insert_nurse(self, nurse_id, forename, surname, email, password, location):
-        params = nurse_id, forename, surname, email, password, location
+    def insert_nurse(self, nurse):
+        params = nurse.nurse_id, nurse.forename, nurse.surname, nurse.email, nurse.password, nurse.location
         self.cursor.execute(
             '''
             INSERT INTO patient VALUES
