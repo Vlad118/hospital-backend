@@ -26,11 +26,11 @@ class Database:
               [email] TEXT, [password] TEXT, [location])'''
         ) #location is within hospital (to be able to link to patient)
 
-    def insert_request(self, ID, request):
+    def insert_request(self, request):
         self.cursor.execute(
             f'''
             INSERT INTO requests VALUES
-                ({ID},{request.patient_id},{request.priority},{request.type_of_request},{request.location})
+                ({request.request_id},{request.patient_id},{request.priority},{request.type_of_request},{request.location})
             '''
         )
         self.connect.commit()

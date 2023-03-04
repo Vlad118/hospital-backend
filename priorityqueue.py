@@ -31,7 +31,8 @@ class PriorityQueue:
     def insert(self, request):
         """Adds new request to DB and priority queue"""
         self.size += 1
-        self.db.insert_request(self.size - 1, request) # add request to DB with ID self.size-1
+        request.request_id = self.size - 1
+        self.db.insert_request(request) # add request to DB with ID self.size-1
 
         j = self.size - 1
         while (j != 0 and self.db.get_priority_of_request(j) > self.db.get_priority_of_request(self.parent(j))):
