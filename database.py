@@ -23,7 +23,7 @@ class Database:
             '''
             CREATE TABLE IF NOT EXISTS nurse
             ([nurse_id] INTEGER PRIMARY KEY, [forename] TEXT, [surname] TEXT,
-              [email] TEXT, [password] TEXT, [location] TEXT)'''
+            [password] TEXT, [location] TEXT)'''
         ) #location is within hospital (to be able to link to patient)
 
         self.cursor.execute(
