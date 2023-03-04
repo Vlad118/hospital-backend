@@ -13,7 +13,7 @@ class Database:
 
         self.cursor.execute(
             '''
-            CREATE TABLE IF NOT EXIST requests
+            CREATE TABLE IF NOT EXISTS requests
             ([request_id] INTERGER PRIMARY KEY, [patient_id] INTEGER, 
             [priority] INTEGER, [type_of_request] TEXT, [location] TEXT)
             '''
