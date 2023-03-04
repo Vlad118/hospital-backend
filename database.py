@@ -3,11 +3,12 @@ import sqlite3
 class Database:
     def __init__(self, db_file):
         self.db_file = db_file
+        self.connect = None
         self.cursor = None
 
     def connect_db(self, db_file):
         """ Creates a database connection with the SQLite database """
-        connect = sqlite3.connect(db_file)
+        self.connect = sqlite3.connect(db_file)
         self.cursor = connect.cursor()
 
         self.cursor.execute(
@@ -25,7 +26,13 @@ class Database:
               [email] TEXT, [password] TEXT, [location])'''
         ) #location is within hospital (to be able to link to patient)
 
-    def insert(self, ID, request):
-        self.cursor.execute()
+    def insert_request(self, ID, request):
+        self.cursor.execute(
+            f'''
+            INSERT INTO requests VALUES
+                ({ID},{request.patient_id},{request.priority},{request.type_of_request},{request.location})
+            '''
+        )
+        self.connect.commit()
 
 #TODO add connect.close() to close the database
