@@ -17,7 +17,7 @@ def login_patient():
         nurse_password = request.form.get('password')
         if Main.check_nurse(nurse_id, nurse_password):
             return selected_person
-        else
+        else:
             return # allow for login retry how
     else:
         if Main.check_patient_id(patient_id):
@@ -27,7 +27,7 @@ def login_patient():
 
 @app.route('/api/login/nurse', methods = ['GET', 'POST'])
 def get_next_task():
-    if request.form.get(break_active) == False: # ensuring BREAK button is not pressed
+    if request.form.get('break_active') == False: # ensuring BREAK button is not pressed
         request_tuple = Main.get_next_request() # tuple(patient_id, type_of_request, location)
 
     return # task information ?
