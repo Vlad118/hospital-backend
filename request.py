@@ -9,9 +9,4 @@ class Request:
         self.location = None
 
     def __getRequest__(self):
-        request_info = []
-        request_info.append(patient_id)
-        request_info.append(type_of_request)
-        request_info.append(location)
-
-        return tuple(request_info)                        
+        return self.patient_id, self.type_of_request, self.location

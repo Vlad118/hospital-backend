@@ -6,3 +6,6 @@ class Nurse:
         self.email = None
         self.password = None
         self.location = None
+
+    def __getNurse__(self):
+        return self.forename, self.surname

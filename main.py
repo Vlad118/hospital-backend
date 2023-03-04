@@ -30,6 +30,9 @@ class Main:
     def get_task(self,id):
         return self.get_next_request()
     
+    def get_nurse_info(self, id)
+        return self.db.get_nurse_info
+    
     def register_nurse(self, nurse):
         return self.db.insert_nurse(nurse)
     
