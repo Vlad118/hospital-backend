@@ -15,7 +15,7 @@ class Database:
             '''
             CREATE TABLE IF NOT EXISTS requests
             ([request_id] INTERGER, [patient_id] INTEGER, 
-            [priority] INTEGER, [type_of_request] TEXT, [location] TEXT)
+            [priority] INTEGER, [type_of_request] TEXT, [location] TEXT, [extra_info] TEXT)
             '''
         ) #location within hospital (wing, ward...)
 
@@ -57,8 +57,8 @@ class Database:
 
 
     def insert_request(self, request):
-        params = (request.request_id, request.patient_id, request.priority, request.type_of_request, request.location)
-        self.cursor.execute("INSERT INTO requests VALUES(?,?,?,?,?)",params)
+        params = (request.request_id, request.patient_id, request.priority, request.type_of_request, request.location, request.extra_info)
+        self.cursor.execute("INSERT INTO requests VALUES(?,?,?,?,?,?)",params)
         self.connect.commit()
 
     def change_id_of_request(self,old_id,new_id):
