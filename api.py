@@ -8,7 +8,8 @@ from flask import Response
 app = Flask(__name__)
 CORS(app)
 
-main = Main()
+main = Main(cleardbs=True)
+main.register_patient(1,None,None)
 
 @app.route('/')
 def home():
@@ -33,9 +34,9 @@ def login_patient():
             return "Fail", 404
 
     else:   # patient
-        patient_id = request.json.get('id')
+        patient_id = request.json.get('patient_id')
         if main.check_patient_id(patient_id):
-            return "Success", 200
+            return "Success", 202
         else:
             return "Fail", 404
 
