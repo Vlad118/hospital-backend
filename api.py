@@ -50,19 +50,17 @@ def get_next_task():
 
 @app.route('/api/send_request', methods = ['GET', 'POST'])
 def send_request():
-    patient_id = request.form.get('patient_id')
-    type_of_request = request.form.get('type_of_request')
-    location = None # completely unimplemented, future project!
-    extra_info = request.form.get('extra_info')
+    try:
+        patient_id = request.json.get('patient_id')
+        type_of_request = request.json.get('type_of_request')
+        location = None # completely unimplemented, future project!
+        extra_info = request.json.get('extra_info')
 
-    request = Request()
-    request.patient_id = patient_id
-    request.priority = main.get_priority_from_type()
-    request.type_of_request = type_of_request
-    request.location = location # todo
-    request.extra_info = extra_info
-    
-    main.add_request(request)   # adds request to database where request_id is generated
+        internal_request = Request(0, patient_id, main.get_priority_from_type(type_of_request), type_of_request, location, extra_info)
+        main.add_request(internal_request)   # adds request to database where request_id is generated
+        return "Success", 200
+    except:
+        return "Fail", 500
 
 # Run the application
 if __name__ == '__main__':
