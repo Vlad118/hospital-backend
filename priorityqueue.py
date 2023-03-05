@@ -26,7 +26,7 @@ class PriorityQueue:
  
     def extract_max(self):
         """Returns request with highest priority"""
-        if self.size >= 0:
+        if self.size > 0:
             request = self.db.get_request(0)
             self.db.remove_request(0)
             self.db.change_id_of_request(self.size-1,0)
