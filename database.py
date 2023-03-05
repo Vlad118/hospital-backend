@@ -22,7 +22,7 @@ class Database:
         self.cursor.execute(
             '''
             CREATE TABLE IF NOT EXISTS nurse
-            ([nurse_id] INTEGER PRIMARY KEY, [forename] TEXT, [surname] TEXT,
+            ([nurse_id] INTEGER PRIMARY KEY, [forename] TEXT, [surname] TEXT, [email] TEXT,
             [password] TEXT, [location] TEXT)'''
         ) #location is within hospital (to be able to link to patient)
 
@@ -131,26 +131,14 @@ class Database:
 
     def check_nurse(self, id, password): # check if nurseID AND password matches, return boolean 
         params = (id, password)
-        nurse_id_exists = False
         password_correct = False
-        nurse_id = self.cursor.execute(
+        result = self.cursor.execute(
             '''
-            SELECT nurse_id from nurse
-            WHERE nurse_id = (?)''', (id,)
-        ).fetchone()
-        nurse_password = self.cursor.execute(
-            '''
-            SELECT password from nurse
-            WHERE nurse_id = (?) AND password = (?)''', params
+            SELECT * from nurse
+            WHERE nurse_id = ? AND password = ?''', params
         ).fetchone()
 
-        if nurse_id != None:
-            nurse_id_exists = True
-        
-        if nurse_password != None:
-            password_correct = True
-        
-        return nurse_id_exists and password_correct
+        return result != None
 
     ### PATIENT ###
     def insert_patient(self, id, forename, surname):
