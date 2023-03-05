@@ -47,12 +47,16 @@ def get_nurse_info():
 
 @app.route('/api/get_next_task', methods = ['GET', 'POST'])
 def get_next_task():
-    task = main.get_next_request() # tuple(patient_id, type_of_request, location)
-    return_dict = []
-    return_dict['patient_id'] = task.patient_id
-    return_dict['type_of_request'] = task.type_of_request
-    return_dict['location'] = task.location
-    return return_dict # (patient_id, type_of_request, location)
+    try:
+      task = main.get_next_request() # tuple(patient_id, type_of_request, location)
+      return_dict = dict()
+      return_dict['patient_id'] = task.patient_id
+      return_dict['type_of_request'] = task.type_of_request
+      return_dict['location'] = task.location
+      return_dict['extra_info'] = task.extra_info
+      return return_dict, 200
+    except TypeError:
+        return "No requests found.", 405
 
 @app.route('/api/send_request', methods = ['GET', 'POST'])
 def send_request():
