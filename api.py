@@ -39,6 +39,12 @@ def login_patient():
         else:
             return "Fail", 404
 
+@app.route('/api/get_nurse_info', methods = ['GET'])
+def get_nurse_info():
+    nurse_id = request.json.get('nurse_id')
+    nurse = main.get_nurse_info(nurse_id)
+    return nurse.forename + ' ' + nurse.surname
+
 @app.route('/api/get_next_task', methods = ['GET', 'POST'])
 def get_next_task():
     task = main.get_next_request() # tuple(patient_id, type_of_request, location)
