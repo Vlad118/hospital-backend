@@ -75,4 +75,5 @@ def send_request():
 
 # Run the application
 if __name__ == '__main__':
-    app.run(port = 8080)
+    p = int(os.environ.get("PORT", 5000))
+    app.run(debug=False, port=p, host="0.0.0.0")
