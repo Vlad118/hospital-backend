@@ -39,11 +39,11 @@ def login_patient():
         else:
             return "Fail", 404
 
-@app.route('/api/get_nurse_info', methods = ['GET'])
+@app.route('/api/get_nurse_info', methods = ['POST'])
 def get_nurse_info():
     nurse_id = request.json.get('nurse_id')
-    nurse = main.get_nurse_info(nurse_id)
-    return nurse.forename + ' ' + nurse.surname
+    nurse = main.get_nurse_info(int(nurse_id))
+    return nurse.forename + ' ' + nurse.surname, 200
 
 @app.route('/api/get_next_task', methods = ['GET', 'POST'])
 def get_next_task():
@@ -56,7 +56,8 @@ def get_next_task():
       return_dict['extra_info'] = task.extra_info
       return return_dict, 200
     except TypeError:
-        return "No requests found.", 405
+      return "Not found", 405
+   
 
 @app.route('/api/send_request', methods = ['GET', 'POST'])
 def send_request():
