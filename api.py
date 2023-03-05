@@ -8,8 +8,7 @@ from flask import Response
 app = Flask(__name__)
 CORS(app)
 
-main = Main(cleardbs=True)
-main.register_patient(1,None,None)
+main = Main()
 
 @app.route('/')
 def home():
