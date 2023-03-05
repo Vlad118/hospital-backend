@@ -8,7 +8,7 @@ class Database:
 
     def connect_db(self):
         """ Creates a database connection with the SQLite database """
-        self.connect = sqlite3.connect(self.db_file)
+        self.connect = sqlite3.connect(self.db_file, check_same_thread=False)
         self.cursor = self.connect.cursor()
 
         self.cursor.execute(

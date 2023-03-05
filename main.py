@@ -51,5 +51,3 @@ class Main:
             return 3
         if type == "EMERGENCY":
             return 10
-
-main = Main(cleardbs=True)
