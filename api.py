@@ -13,11 +13,11 @@ def home():
 @app.route('/api/login', methods = ['GET', 'POST'])
 def login_patient():
     selected_person = request.form.get('person')
-    patient_id = request.form.get('id')
     return_dict = []
 
     if selected_person == "NURSE":
-        nurse_password = request.form.get('password')
+        nurse_id = request.form.get("nurse_id")
+        nurse_password = request.form.get('nurse_password')
 
         if Main.check_nurse(nurse_id, nurse_password):
             nurse = Main.get_nurse_info()
@@ -28,6 +28,7 @@ def login_patient():
             return_dict['status'] = 404 # error not found
 
     else:   # patient
+        patient_id = request.form.get('id')
         if Main.check_patient_id(patient_id):
             return_dict['status'] = 202 # OK accepted patient
         else:
